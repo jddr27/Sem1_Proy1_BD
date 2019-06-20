@@ -82,3 +82,27 @@
 	$ docker tag nombre_del_repo_local nombre_del_repo_en_linea
 	$ docker push nombre_del_repo_en_linea
 ```
+## Posibles Errores :
+
+### er_not_supported_auth_mode:
+Si se encuentra con este error, haga los siguientes pasos:
+
+**1. Entre al sistema del docker de la base de datos:**
+```
+	$ docker exec -it [id container] bash
+```
+
+**2.Ingrese al modo mysql y haga login con el usuario root:**
+```
+	$ mysql -u root -p
+```
+
+**3. Ingrese el siguiente comando para crear un usuario válido:**
+```
+	$ CREATE USER 'nuevo_nombre'@'%' IDENTIFIED WITH mysql_native_password BY 'nueva_contra';
+```
+
+**4. Ingrese el siguiente comando para darle permisos al nuevo usuario:**
+```
+	$ GRANT ALL PRIVILEGES ON database_name.* TO 'username'@'localhost';
+```
