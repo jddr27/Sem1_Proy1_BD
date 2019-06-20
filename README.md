@@ -1,4 +1,11 @@
 # Sem1_Proy1_BD
+
+## Integrantes Grupo :
+```
+200310165 - José Abraham Navarro de León.
+201503393 - José Daniel de León Ruiz.
+201503893 - Brandon Javier Soto Castañeda.
+```
 ## Pasos para crear la Base de Datos:
 
 **1. Crear una carpeta para el repositorio Docker:**
