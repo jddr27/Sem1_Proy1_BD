@@ -3,22 +3,17 @@ kind: Deployment
 metadata:
   name: bd
   namespace: entrega-final
+  app: mysql
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
-      workload.user.cattle.io/workloadselector: deployment-entrega-final-bd
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
-    type: RollingUpdate
+      app: mysql
   template:
     metadata:
       labels:
-        workload.user.cattle.io/workloadselector: deployment-entrega-final-bd
+        app: mysql
     spec:
       containers:
       - image: jdgk27/proyecto2:bd
@@ -27,31 +22,19 @@ spec:
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: 123456789
-      dnsPolicy: ClusterFirst
-      imagePullSecrets:
-      - name: dockerhub
-      restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
-      terminationGracePeriodSeconds: 30
 ---      
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    field.cattle.io/targetWorkloadIds: '["deployment:entrega-final:bd"]'
-    workload.cattle.io/targetWorkloadIdNoop: "true"
-    workload.cattle.io/workloadPortBased: "true"
-  labels:
-    cattle.io/creator: norman
-  name: nginx-loadbalancer
+  name: mysql
   namespace: entrega-final
+  labels:
+    app: mysql
 spec:
-  externalTrafficPolicy: Cluster
+  type: ClusterIP 
   ports:
   - port: 3306
-    protocol: TCP
     targetPort: 3306
   selector:
-    workload.user.cattle.io/workloadselector: deployment-entrega-final-bd
-  type: LoadBalancer 
+    app: mysql
+  
