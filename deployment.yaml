@@ -24,6 +24,9 @@ spec:
       - image: jdgk27/proyecto2:bd
         imagePullPolicy: Always
         name: bd
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: 123456789
       dnsPolicy: ClusterFirst
       imagePullSecrets:
       - name: dockerhub
